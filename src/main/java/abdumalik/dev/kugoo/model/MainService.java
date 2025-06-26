@@ -12,8 +12,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "products")
-public class Product {
+@Entity
+public class MainService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,22 +21,12 @@ public class Product {
 
     @ManyToOne
     private Photo photoId;
-    @Column(nullable = false)
-    private String name;
-    @Column(nullable = false)
-    private Integer power;
-    @Column(nullable = false)
-    private Integer speed;
-    @Column(nullable = false)
-    private Integer hour;
-    @Column(nullable = false)
-    private Double price;
     @ManyToOne
-    private Cart cart;
+    private ReelsMedia reelsMediaId;
+    @Column(nullable = false)
+    private String question;
     @ManyToOne
-    private Like like;
-    @ManyToOne
-    private Card card;
+    private Contact contact;
 
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();

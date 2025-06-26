@@ -1,7 +1,7 @@
 package abdumalik.dev.kugoo.controller;
 
-import abdumalik.dev.kugoo.dto.CategoryDto;
-import abdumalik.dev.kugoo.service.CategoryService;
+import abdumalik.dev.kugoo.dto.CartDto;
+import abdumalik.dev.kugoo.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -12,46 +12,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/cart")
+public class CartController {
 
     @Autowired
-    CategoryService service;
+    CartService cartService;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN','USER')")
     public HttpEntity<?> readAll() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(cartService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN','USER')")
     public HttpEntity<?> readById(@PathVariable UUID id) {
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-    }
-
-    @GetMapping("/{name}")
-    @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN','USER')")
-    public HttpEntity<?> readByName(@PathVariable String name) {
-        return new ResponseEntity<>(service.findByName(name), HttpStatus.OK);
+        return new ResponseEntity<>(cartService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN')")
-    public HttpEntity<?> create(@RequestBody CategoryDto dto) {
-        return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
+    public HttpEntity<?> create(@RequestBody CartDto cartDto) {
+        return new ResponseEntity<>(cartService.create(cartDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN')")
-    public HttpEntity<?> update(@PathVariable UUID id, @RequestBody CategoryDto dto) {
-        return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
+    public HttpEntity<?> update(@PathVariable UUID id, @RequestBody CartDto cartDto) {
+        return new ResponseEntity<>(cartService.update(id, cartDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPERADMIN','ADMIN')")
     public HttpEntity<?> delete(@PathVariable UUID id) {
-        return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
+        return new ResponseEntity<>(cartService.delete(id), HttpStatus.OK);
     }
 
 }

@@ -12,31 +12,16 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "products")
-public class Product {
+@Entity(name = "likes")
+public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @ManyToOne
-    private Photo photoId;
     @Column(nullable = false)
-    private String name;
+    private Integer likeCount;
     @Column(nullable = false)
-    private Integer power;
-    @Column(nullable = false)
-    private Integer speed;
-    @Column(nullable = false)
-    private Integer hour;
-    @Column(nullable = false)
-    private Double price;
-    @ManyToOne
-    private Cart cart;
-    @ManyToOne
-    private Like like;
-    @ManyToOne
-    private Card card;
+    private String status;
 
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
